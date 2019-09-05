@@ -8,7 +8,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.lang.Exception
 
-class AppleRssRetriever(url: String) : AsyncTask<String, Void, JSONObject>() {
+class AppleRssTask(url: String) : AsyncTask<String, Void, JSONObject>() {
     private var mUrl = url
 
     override fun doInBackground(vararg p0: String?): JSONObject? {

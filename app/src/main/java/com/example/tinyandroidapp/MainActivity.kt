@@ -2,24 +2,20 @@ package com.example.tinyandroidapp
 
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.wordlist_item.*
 import org.json.JSONArray
-import java.nio.file.Files.size
-
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
 
-    var mWordList = mutableListOf<String>()
+    var mWordList = mutableListOf<JSONObject>()
     var mRecyclerView : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +28,9 @@ class MainActivity : AppCompatActivity() {
             // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             //         .setAction("Action", null).show()
             var wordListSize : Int = mWordList.size
-            mWordList.add("+ Word " + wordListSize)
+            val newJsonObj = JSONObject()
+
+            mWordList.add(newJsonObj)
             mRecyclerView?.adapter?.notifyItemInserted(wordListSize)
             mRecyclerView?.smoothScrollToPosition(wordListSize)
         }
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     fun loadRssFeed(view: View) {
 
-        var appleRssRetriever = AppleRssRetriever("https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/10/explicit.json")
+        var appleRssRetriever = AppleRssTask("https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/10/explicit.json")
         var appleRssJsonObj = appleRssRetriever.execute().get()
 
         var results : JSONArray = appleRssJsonObj.getJSONObject("feed").getJSONArray("results")
@@ -65,8 +63,7 @@ class MainActivity : AppCompatActivity() {
 
 
         for (i in 0 until results.length()) {
-            val artistName = results.getJSONObject(i).getString("artistName")
-            mWordList.add(artistName)
+            mWordList.add(results.getJSONObject(i))
         }
 
 
