@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.wordlist_item.*
 import org.json.JSONArray
 import java.nio.file.Files.size
 
@@ -18,16 +19,22 @@ import java.nio.file.Files.size
 
 class MainActivity : AppCompatActivity() {
 
-
+    var mWordList = mutableListOf<String>()
+    var mRecyclerView : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        mRecyclerView = findViewById(R.id.recyclerview)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            //         .setAction("Action", null).show()
+            var wordListSize : Int = mWordList.size
+            mWordList.add("+ Word " + wordListSize)
+            mRecyclerView?.adapter?.notifyItemInserted(wordListSize)
+            mRecyclerView?.smoothScrollToPosition(wordListSize)
         }
     }
 
@@ -48,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadRssFeed(view: View) {
-        var mWordList = mutableListOf<String>()
+
         var appleRssRetriever = AppleRssRetriever("https://rss.itunes.apple.com/api/v1/us/apple-music/coming-soon/all/10/explicit.json")
         var appleRssJsonObj = appleRssRetriever.execute().get()
 
@@ -62,9 +69,9 @@ class MainActivity : AppCompatActivity() {
             mWordList.add(artistName)
         }
 
-        var mRecyclerView : RecyclerView = findViewById(R.id.recyclerview)
+
         var mAdapter = WordListAdapter(this, mWordList)
-        mRecyclerView.adapter = mAdapter
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        mRecyclerView?.adapter = mAdapter
+        mRecyclerView?.layoutManager = LinearLayoutManager(this)
     }
 }

@@ -13,7 +13,18 @@ class WordListAdapter(context: Context, wordList: MutableList<String>) : Recycle
     var mWordList = wordList
     var mInflator: LayoutInflater = LayoutInflater.from(context)
 
-    class WordViewHolder(itemView: View, adapter: WordListAdapter) : RecyclerView.ViewHolder(itemView)
+    class WordViewHolder(itemView: View, adapter: WordListAdapter) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        var mAdapter = adapter
+        var mItemView = itemView.setOnClickListener(this)
+
+
+        override fun onClick(p0: View?) {
+            var mPosition : Int = layoutPosition
+            var element : String =  mAdapter.mWordList.get(mPosition)
+            mAdapter.mWordList.set(mPosition, "Clicked " + element)
+            mAdapter.notifyDataSetChanged()
+        }
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
