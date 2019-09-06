@@ -23,6 +23,5 @@ class RssDetailsActivity : AppCompatActivity() {
         imageViewAlbumArt?.setImageBitmap(rssAlbumArtTask)
         findViewById<TextView>(R.id.textview_album_name)?.text = albumName
         findViewById<TextView>(R.id.textview_artist_name)?.text = artistname
-        findViewById<TextView>(R.id.textview_misc_details)?.text = "Hello world"
     }
 }
