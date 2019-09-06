@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
             android:id="@+id/rssdetailsview"
@@ -29,12 +30,6 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic[0]" />
 
         <TextView
-            android:id="@+id/textview_misc_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
             android:id="@+id/textview_artist_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +37,12 @@
 
         <TextView
             android:id="@+id/textview_album_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textview_misc_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />

@@ -1,15 +1,10 @@
 package com.example.tinyandroidapp
 
-import android.app.Activity
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.ScrollView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import java.net.URI
 
 class RssDetailsActivity : AppCompatActivity() {
 
@@ -21,7 +16,6 @@ class RssDetailsActivity : AppCompatActivity() {
         val albumName = intent.getStringExtra("albumname")
         val artistname =  intent.getStringExtra("artistname")
 
-        val uri = Uri.parse(albumUrl)
         val imageViewAlbumArt = findViewById<ImageView>(R.id.imageview_album_art)
 
         val rssAlbumArtTask = RssAlbumArtTask(albumUrl, imageViewAlbumArt).execute().get()

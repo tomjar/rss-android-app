@@ -19,7 +19,7 @@ class RssAlbumArtTask(url: String, imageView : ImageView) : AsyncTask<Void, Void
             try {
                 val urlConnection = URL(mUrl)
                 val connection = urlConnection.openConnection()
-                connection.setDoInput(true)
+                connection.doInput = true
                 connection.connect()
                 val input = connection.getInputStream()
                 return BitmapFactory.decodeStream(input)

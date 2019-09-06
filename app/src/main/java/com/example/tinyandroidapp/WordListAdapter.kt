@@ -5,13 +5,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
-import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.wordlist_item.view.*
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.ContextCompat.startActivity
 import org.json.JSONObject
 
 
@@ -28,16 +24,14 @@ class WordListAdapter(context: Context, wordList: MutableList<JSONObject>) : Rec
 
         override fun onClick(p0: View?) {
             var mPosition : Int = layoutPosition
-            val albumUrl : String =  mAdapter.mWordList[mPosition].getString("artworkUrl100")
-            val albumName : String =  mAdapter.mWordList[mPosition].getString("name")
-            val artistName : String =  mAdapter.mWordList[mPosition].getString("artistName")
+            val rssFeedObj = RssFeedObj(mAdapter.mWordList[mPosition])
 
 
             val intent = Intent(mContext, RssDetailsActivity::class.java)
 
-            intent.putExtra("albumurl", albumUrl)
-            intent.putExtra("albumname", albumName)
-            intent.putExtra("artistname", artistName)
+            intent.putExtra("albumurl", rssFeedObj.albumImageUrl)
+            intent.putExtra("albumname", rssFeedObj.albumName)
+            intent.putExtra("artistname", rssFeedObj.artistName)
 
             startActivity(mContext, intent, null)
         }

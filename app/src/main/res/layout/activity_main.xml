@@ -17,14 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:navigationIcon="@drawable/ic_launcher_foreground"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <Button
             android:id="@+id/button_load_rss_feed"
-            android:onClick="loadRssFeed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="loadRssFeed"
             android:text="@string/load_rss_feed" />
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
