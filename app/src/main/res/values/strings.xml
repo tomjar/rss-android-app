@@ -2,5 +2,6 @@
     <string name="app_name">tinyandroidapp</string>
     <string name="action_settings">Settings</string>
     <string name="load_rss_feed">Load RSS Feed</string>
-    <string name="rss_feed_url">https://rss.itunes.apple.com/api/v1/us/apple-music/top-albums/all/25/non-explicit.json</string>
+    <string name="rss_feed_url">https://rss.itunes.apple.com/api/v1/us/apple-music/top-albums/all/${0}/non-explicit.json</string>
+    <string name="default_number_rss">25</string>
 </resources>

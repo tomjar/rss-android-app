@@ -20,9 +20,19 @@
             app:navigationIcon="@drawable/ic_launcher_foreground"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+        <EditText
+            android:id="@+id/text_number_count"
+            style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="number"
+            android:paddingTop="0dp"
+            android:text="@string/default_number_rss" />
+
         <Button
             android:id="@+id/button_load_rss_feed"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="loadRssFeed"
             android:text="@string/load_rss_feed" />
@@ -31,6 +41,9 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main"/>
+
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

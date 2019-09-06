@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,12 +19,14 @@ class MainActivity : AppCompatActivity() {
 
     var mWordList = mutableListOf<JSONObject>()
     var mRecyclerView : RecyclerView? = null
+    var mSpinner : ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         mRecyclerView = findViewById(R.id.recyclerview)
+        mSpinner = findViewById<ProgressBar>(R.id.progressbar_spinner)
 
         fab.setOnClickListener { view ->
             var wordListSize : Int = mWordList.size
@@ -55,12 +58,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadRssFeed(view: View) {
-        // var spinner = findViewById<ProgressBar>(R.id.progressbar_spinner)
-        // spinner.visibility = View.VISIBLE
-
+        mSpinner?.setVisibility(View.VISIBLE)
+        var numberOfResults = findViewById<TextView>(R.id.text_number_count)
         // https://rss.itunes.apple.com/en-us
-        var appleRssRetriever = AppleRssTask(resources.getString(R.string.rss_feed_url))
-        var appleRssJsonObj = appleRssRetriever.execute().get()
+
+        val number = numberOfResults.text
+        val requestUrl = resources.getString(R.string.rss_feed_url).replace("\${0}", number.toString())
+        Log.i("MainActivity", requestUrl)
+
+        var appleRssTask = AppleRssTask(requestUrl, mSpinner)
+
+        var appleRssJsonObj = appleRssTask.execute().get()
         var results = JSONArray()
 
         if(appleRssJsonObj.has("feed")){
@@ -70,13 +78,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        Log.e("MainActivity", results?.toString())
+        Log.i("MainActivity", results?.toString())
 
-
+        mWordList.clear()
         for (i in 0 until results.length()) {
             mWordList.add(results.getJSONObject(i))
         }
-        // spinner.visibility = View.GONE
 
         var mAdapter = WordListAdapter(this, mWordList)
         mRecyclerView?.adapter = mAdapter
